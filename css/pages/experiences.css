@@ -1,0 +1,316 @@
+/* ==========================================================================
+   Experiences — grouped by the place they belong to
+   ========================================================================== */
+
+/* Category row sits on paper right under the band, like the destination tabs */
+.ex-cats {
+  background: var(--rif-paper);
+}
+
+/* ---- Category tabs ----------------------------------------------------- */
+.ex-cats {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.ex-cats__list {
+  display: flex;
+  gap: var(--space-6);
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+
+.ex-cats__list::-webkit-scrollbar {
+  display: none;
+}
+
+.ex-cat {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+  min-block-size: 52px;
+  padding-block: var(--space-4);
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.ex-cat small {
+  font-size: var(--fs-micro);
+  color: var(--color-text-faint);
+}
+
+.ex-cat::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  block-size: 2px;
+  background: var(--rif-ink);
+  transform: scaleX(0);
+  transition: transform var(--dur-3) var(--ease-out);
+}
+
+.ex-cat[aria-pressed="true"] {
+  color: var(--color-text);
+}
+
+.ex-cat[aria-pressed="true"]::after {
+  transform: scaleX(1);
+}
+
+.ex-cat:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* ---- Filters ---------------------------------------------------------- */
+.ex-bar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: var(--z-sticky);
+  background: rgba(250, 247, 241, 0.96);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--color-line);
+  transition: top var(--dur-3) var(--ease-out);
+}
+
+body.header-hidden .ex-bar {
+  top: 0;
+}
+
+.ex-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+}
+
+.ex-filters {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.ex-f {
+  display: grid;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.ex-f__label {
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+
+.ex-f .input,
+.ex-f .select {
+  min-block-size: 44px;
+  font-size: var(--fs-small);
+}
+
+.ex-f__range {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-meta);
+}
+
+.ex-active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ex-active .chip {
+  min-block-size: 32px;
+  font-size: var(--fs-meta);
+}
+
+.ex-filter-btn .ex-filter-btn__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 20px;
+  block-size: 20px;
+  padding-inline: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--rif-olive);
+  color: var(--rif-white);
+  font-size: var(--fs-micro);
+}
+
+/* Desktop: filters inline in the bar */
+.ex-bar .ex-filters {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ex-bar .ex-filters {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    align-items: end;
+    gap: var(--space-5);
+    flex: 1;
+  }
+
+  .ex-filter-btn {
+    display: none !important;
+  }
+
+  .ex-bar__inner {
+    padding-block: var(--space-4);
+  }
+}
+
+/* ---- Results ----------------------------------------------------------- */
+.ex-results {
+  padding-block: var(--space-6) var(--section-y);
+}
+
+.ex-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-7);
+}
+
+.ex-group {
+  display: grid;
+  gap: var(--space-5);
+  padding-block: var(--space-7);
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.ex-group:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.ex-group__head {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.ex-group__place {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.ex-group__place .media {
+  --ratio: 1;
+  border-radius: 50%;
+}
+
+.ex-group__name {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+}
+
+.ex-group__name a {
+  text-decoration: none;
+}
+
+.ex-group__line {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.ex-group__headline {
+  color: var(--rif-earth);
+}
+
+.ex-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .ex-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ex-group {
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .ex-group__head {
+    position: sticky;
+    top: calc(var(--header-h) + 120px);
+  }
+
+  .ex-group__place {
+    grid-template-columns: 1fr;
+  }
+
+  .ex-group__place .media {
+    --ratio: 4 / 3;
+    border-radius: var(--radius-sm);
+  }
+}
+
+@media (min-width: 1280px) {
+  .ex-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Phones: cards in a swipeable rail per destination */
+@media (max-width: 767px) {
+  .ex-grid {
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-bottom: var(--space-2);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .ex-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ex-grid > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Phones: the count already shows in the filter bar */
+@media (max-width: 1023px) {
+  .ex-meta [data-count] {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .ex-meta {
+    margin-bottom: var(--space-5);
+  }
+
+  .ex-meta:has(.ex-active:empty) {
+    display: none;
+  }
+}
+
+.ex-cats,
+.ex-bar {
+  overflow-x: clip;
+}

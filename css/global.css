@@ -1,0 +1,420 @@
+/* ==========================================================================
+   RIF QASSIM — Global base
+   Logical properties only (inline/block), so RTL is native, not mirrored.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + var(--space-4));
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+body.has-bottom-nav {
+  padding-bottom: 0;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd, ul, ol {
+  margin: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+::selection {
+  background: var(--rif-date-soft);
+  color: var(--rif-ink);
+}
+
+/* ---- Focus: always visible for keyboard users ------------------------- */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  top: -100px;
+  z-index: var(--z-toast);
+  padding: var(--space-3) var(--space-5);
+  background: var(--rif-ink);
+  color: var(--rif-white);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Typography ------------------------------------------------------- */
+.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: var(--fw-light);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+:root[lang="en"] .display {
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-tight);
+}
+
+.h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+}
+
+.h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-snug);
+}
+
+.h4 {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-snug);
+}
+
+:root[lang="en"] .h1,
+:root[lang="en"] .h2 {
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.75;
+  color: var(--color-text-muted);
+  max-width: var(--measure);
+}
+
+.prose {
+  max-width: var(--measure);
+}
+
+.prose p + p {
+  margin-top: var(--space-4);
+}
+
+.small {
+  font-size: var(--fs-small);
+}
+
+.meta {
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+/* Section kicker: a short line that names the section's place in the story.
+   Sentence case, regular weight — never tracked-out capitals. */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.kicker::before {
+  content: "";
+  inline-size: 28px;
+  block-size: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* Mono is reserved for references, coordinates and step counters */
+.mono,
+.ref {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1;
+  letter-spacing: 0;
+}
+
+.num {
+  font-family: var(--font-en);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  unicode-bidi: isolate;
+}
+
+bdi,
+.ltr {
+  unicode-bidi: isolate;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+/* ---- Layout primitives ------------------------------------------------ */
+.container {
+  inline-size: 100%;
+  max-inline-size: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--wide {
+  max-inline-size: calc(var(--container-wide) + var(--gutter) * 2);
+}
+
+.container--narrow {
+  max-inline-size: calc(var(--container-narrow) + var(--gutter) * 2);
+}
+
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+}
+
+.section--tight {
+  padding-block: calc(var(--section-y) * 0.6);
+}
+
+.section--sand {
+  background: var(--color-surface-2);
+}
+
+.section--paper {
+  background: var(--color-surface);
+}
+
+.section--earth {
+  background: var(--rif-earth);
+  color: var(--color-on-dark);
+}
+
+.section--earth .lead,
+.section--earth .meta,
+.section--earth .muted,
+.section--earth .kicker {
+  color: var(--color-on-dark-muted);
+}
+
+.stack > * + * {
+  margin-top: var(--stack-gap, var(--space-4));
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-gap, var(--space-3));
+}
+
+.split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.grid {
+  display: grid;
+  gap: var(--grid-gap, var(--space-6));
+  grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr));
+}
+
+.rule {
+  border: 0;
+  block-size: 1px;
+  background: var(--color-line);
+  margin: 0;
+}
+
+.rule--strong {
+  background: var(--color-line-strong);
+}
+
+/* The horizon: one recurring line that frames sections */
+.horizon {
+  position: relative;
+}
+
+.horizon::before {
+  content: "";
+  position: absolute;
+  inset-inline: var(--gutter);
+  top: 0;
+  block-size: 1px;
+  background: var(--color-line-strong);
+}
+
+/* ---- Contour lines (survey motif) ------------------------------------ */
+/* The pattern is a mask, so its colour comes from `color` on the element. */
+.contours {
+  position: relative;
+  isolation: isolate;
+}
+
+.contours::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: currentColor;
+  opacity: var(--contour-opacity, 0.09);
+  -webkit-mask: url("../assets/patterns/contours.svg") center / var(--contour-size, cover) no-repeat;
+  mask: url("../assets/patterns/contours.svg") center / var(--contour-size, cover) no-repeat;
+}
+
+.contours--sage::after { background-color: var(--rif-sage); opacity: 0.35; }
+.contours--light::after { background-color: var(--rif-white); opacity: var(--contour-opacity, 0.12); }
+
+/* Plot grid: thin survey grid used behind reports and assessments */
+.plot-grid {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: -1px -1px;
+}
+
+/* ---- Direction-aware icons ------------------------------------------- */
+.icon {
+  inline-size: 1.25em;
+  block-size: 1.25em;
+  flex: none;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon--sm { inline-size: 1em; block-size: 1em; }
+.icon--lg { inline-size: 1.6em; block-size: 1.6em; }
+
+/* Icons drawn pointing "forward" in LTR flip in RTL so forward still means
+   the reading direction. */
+[dir="rtl"] .icon--dir {
+  transform: scaleX(-1);
+}
+
+/* ---- Demo labelling ---------------------------------------------------- */
+.demo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.15em 0.6em;
+  font-size: var(--fs-micro);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-xs);
+  white-space: nowrap;
+}
+
+.est {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--fs-micro);
+  color: var(--rif-date);
+  white-space: nowrap;
+}
+
+.est::before {
+  content: "";
+  inline-size: 6px;
+  block-size: 6px;
+  border: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+/* Content images and all media slots */
+.no-scroll {
+  overflow: hidden;
+}

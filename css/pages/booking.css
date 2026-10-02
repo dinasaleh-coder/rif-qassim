@@ -1,0 +1,420 @@
+/* ==========================================================================
+   Booking — five calm steps, a summary that always tells the truth
+   ========================================================================== */
+
+.bk-page {
+  padding-block: var(--space-7) var(--space-9);
+}
+
+.bk-top {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.bk-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.bk-back:hover {
+  color: var(--color-text);
+}
+
+.bk-back .icon {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .bk-back .icon {
+  transform: none;
+}
+
+.bk-title {
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.75rem);
+  font-weight: var(--fw-light);
+  line-height: 1.15;
+}
+
+.bk-progress {
+  scroll-margin-top: calc(var(--header-h) + var(--space-4));
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-7);
+}
+
+.bk-progress .steps__item {
+  font-size: var(--fs-small);
+}
+
+.bk-progress .steps__num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--color-text-faint);
+}
+
+.bk-progress .is-current .steps__num,
+.bk-progress .is-done .steps__num {
+  color: var(--rif-date);
+}
+
+@media (max-width: 599px) {
+  .bk-progress .steps__label {
+    display: none;
+  }
+
+  .bk-progress .is-current .steps__label {
+    display: block;
+    overflow: visible;
+  }
+}
+
+/* ---- Layout ------------------------------------------------------------ */
+.bk-layout {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.bk-main {
+  min-inline-size: 0;
+}
+
+.bk-step {
+  display: grid;
+  gap: var(--space-5);
+  animation: rise-in var(--dur-3) var(--ease-out);
+}
+
+.bk-step__head {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.bk-step__title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+}
+
+.bk-step__title:focus {
+  outline: none;
+}
+
+.bk-panel {
+  padding: var(--space-5);
+  background: var(--rif-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.bk-panel.is-invalid {
+  border-color: var(--status-error);
+}
+
+.bk-picked {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--rif-paper);
+  border-radius: var(--radius-sm);
+}
+
+.bk-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-line);
+}
+
+.bk-nav .btn--primary {
+  min-inline-size: 180px;
+}
+
+.bk-review {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.bk-review > div {
+  display: grid;
+  grid-template-columns: 7rem 1fr auto;
+  gap: var(--space-3);
+  align-items: baseline;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.bk-review dt {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.bk-review dd {
+  margin: 0;
+}
+
+.bk-form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .bk-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bk-form > [data-field="notes"],
+  .bk-form > [data-field="agree"] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---- Summary ------------------------------------------------------------- */
+.bk-summary {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.bk-summary__head {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.bk-summary__head .media {
+  --ratio: 1;
+  border-radius: var(--radius-xs);
+}
+
+.bk-summary__facts {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--fs-small);
+}
+
+.bk-summary__facts > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.bk-summary__facts dt {
+  color: var(--color-text-muted);
+}
+
+.bk-summary__facts dd {
+  margin: 0;
+  text-align: end;
+}
+
+.bk-summary__facts dd.is-empty {
+  color: var(--color-text-faint);
+}
+
+.bk-demo {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+
+.bk-demo .icon {
+  flex: none;
+  color: var(--rif-date);
+  margin-top: 2px;
+}
+
+@media (min-width: 1024px) {
+  .bk-layout {
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .bk-aside {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-5));
+  }
+
+  .bk-layout.is-done {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---- Mobile action bar --------------------------------------------- */
+.bk-bar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: var(--z-bottom-nav);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--gutter) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  background: rgba(250, 247, 241, 0.97);
+  border-top: 1px solid var(--color-line);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.bk-bar__total {
+  display: grid;
+  justify-items: start;
+  line-height: 1.3;
+  text-align: start;
+}
+
+.bk-bar__total strong {
+  font-family: var(--font-en);
+  font-size: 1.15rem;
+  font-weight: var(--fw-medium);
+}
+
+.bk-bar__total span {
+  font-size: var(--fs-micro);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+body.has-bk-bar {
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+}
+
+body.has-bk-bar .demo-fab,
+body.has-bk-bar .toast-region {
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 1023px) {
+  .bk-nav {
+    display: none;
+  }
+
+  .bk-aside {
+    order: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bk-bar {
+    display: none;
+  }
+
+  body.has-bk-bar {
+    padding-bottom: 0;
+  }
+
+  body.has-bk-bar .demo-fab,
+  body.has-bk-bar .toast-region {
+    bottom: var(--space-5);
+  }
+}
+
+/* ---- Confirmation --------------------------------------------------- */
+.bk-done {
+  display: grid;
+  gap: var(--space-6);
+  max-inline-size: 720px;
+  margin-inline: auto;
+  padding: var(--space-7) var(--space-5);
+  text-align: center;
+  justify-items: center;
+  background: var(--rif-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  --contour-opacity: 0.06;
+}
+
+.bk-done__mark {
+  inline-size: 72px;
+  block-size: 72px;
+  border-radius: 50%;
+  background: var(--rif-olive);
+  color: var(--rif-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rise-in var(--dur-4) var(--ease-soft);
+}
+
+.bk-done__mark .icon {
+  inline-size: 34px;
+  block-size: 34px;
+  stroke-width: 2;
+}
+
+.bk-done__notice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.4em 1em;
+  border-radius: var(--radius-pill);
+  background: var(--status-pending-bg);
+  color: var(--status-pending);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+.bk-details {
+  inline-size: 100%;
+  margin: 0;
+  display: grid;
+  text-align: start;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.bk-details > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.9375rem;
+}
+
+.bk-details dt {
+  color: var(--color-text-muted);
+}
+
+.bk-details dd {
+  margin: 0;
+  text-align: end;
+}
+
+.bk-done__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.bk-panel .cal {
+  max-inline-size: 460px;
+}
+
+.bk-panel .cal__day {
+  min-block-size: 0;
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ريف القصيم — من الأرض تبدأ الحكاية</title>
+  <meta name="description" content="ريف القصيم تحوّل الأصول الريفية القائمة في القصيم إلى وجهات متكاملة قابلة للتشغيل والاستثمار.">
+  <meta name="theme-color" content="#FAF7F1">
+  <script>
+    /* Apply the saved language before first paint (avoids an RTL→LTR flash) */
+    try {
+      if (JSON.parse(localStorage.getItem("rif:v1:lang")) === "en") {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      }
+    } catch (e) {}
+  </script>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Web fonts load without blocking the page; system fonts are the fallback -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/motion.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/pages/home.css">
+  <script type="module" src="js/pages/home.js"></script>
+</head>
+<body>
+  <main id="main" data-page="home">
+    <noscript><p style="padding:8rem 1.5rem;text-align:center">يحتاج هذا النموذج إلى تفعيل JavaScript.</p></noscript>
+  </main>
+</body>
+</html>

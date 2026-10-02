@@ -1,0 +1,172 @@
+/* ==========================================================================
+   RIF QASSIM — Motion
+   Motion only reveals the story, confirms an action, or shows changed data.
+   ========================================================================== */
+
+/* Cross-document page transitions (progressive enhancement) */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 360ms;
+  animation-timing-function: var(--ease-out);
+}
+
+/* ---- Scroll reveal ---------------------------------------------------- */
+/* Hidden state only applies once JS has confirmed it can reveal things,
+   so content is never lost if scripts fail. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-4) var(--ease-out),
+    transform var(--dur-4) var(--ease-soft);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+.js [data-reveal="fade"] {
+  transform: none;
+}
+
+.js [data-reveal="line"] {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: var(--origin, right);
+}
+
+[dir="ltr"] [data-reveal="line"] { --origin: left; }
+
+.js [data-reveal="mask"] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path var(--dur-5) var(--ease-soft);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+
+.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.js [data-reveal="mask"].is-revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Split headline lines rising from a mask */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.line-mask > span {
+  display: block;
+}
+
+.js .line-mask > span {
+  transform: translateY(105%);
+  transition: transform var(--dur-5) var(--ease-soft);
+  transition-delay: calc(var(--i, 0) * 110ms + 120ms);
+}
+
+.js .is-revealed .line-mask > span,
+.js .line-mask.is-revealed > span {
+  transform: none;
+}
+
+/* ---- Keyframes --------------------------------------------------------- */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  to { transform: translateX(100%); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes toast-out {
+  to { opacity: 0; transform: translateY(8px); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes field-error-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes line-flash {
+  0% { background-color: rgba(168, 104, 58, 0.16); }
+  100% { background-color: transparent; }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(168, 104, 58, 0.45); }
+  70% { box-shadow: 0 0 0 10px rgba(168, 104, 58, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(168, 104, 58, 0); }
+}
+
+@keyframes draw {
+  from { stroke-dashoffset: var(--len, 1000); }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes slow-drift {
+  from { transform: scale(1.08) translate3d(0, 0, 0); }
+  to { transform: scale(1.02) translate3d(0, -1.5%, 0); }
+}
+
+.anim-rise {
+  animation: rise-in var(--dur-4) var(--ease-soft) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+.anim-fade {
+  animation: fade-in var(--dur-4) var(--ease-out) both;
+}
+
+/* Numbers that change value (price totals, scores) */
+.is-ticking {
+  color: var(--rif-date);
+  transition: color var(--dur-4) var(--ease-out);
+}
+
+/* ---- Reduced motion ---------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js [data-reveal],
+  .js [data-reveal="mask"],
+  .js .line-mask > span {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  @view-transition {
+    navigation: none;
+  }
+}

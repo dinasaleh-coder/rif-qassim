@@ -1,0 +1,698 @@
+/* ==========================================================================
+   Owner workspace — an operating notebook, not a KPI grid
+   Hierarchy comes from type, rules and space; containers are rare.
+   ========================================================================== */
+
+.ow-page {
+  padding-block: var(--space-7) var(--space-9);
+}
+
+.ow-layout {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.ow-layout > * {
+  min-inline-size: 0;
+}
+
+/* ---- Rail (desktop navigation) ----------------------------------- */
+.ow-rail {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ow-layout {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: var(--space-9);
+    align-items: start;
+  }
+
+  .ow-rail {
+    display: grid;
+    gap: var(--space-5);
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-6));
+  }
+}
+
+.ow-rail__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.ow-rail__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  position: relative;
+}
+
+.ow-rail__link .icon {
+  color: var(--color-text-faint);
+}
+
+.ow-rail__link:hover {
+  color: var(--color-text);
+}
+
+.ow-rail__link[aria-current="page"] {
+  color: var(--color-text);
+  font-weight: var(--fw-medium);
+}
+
+.ow-rail__link[aria-current="page"] .icon {
+  color: var(--rif-olive);
+}
+
+.ow-rail__link[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(var(--space-4) * -1);
+  inset-block: 25%;
+  inline-size: 2px;
+  background: var(--rif-olive);
+}
+
+.ow-badge {
+  margin-inline-start: auto;
+  min-inline-size: 20px;
+  block-size: 20px;
+  padding-inline: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--rif-date);
+  color: var(--rif-white);
+  font-size: var(--fs-micro);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- View ------------------------------------------------------- */
+.ow-view {
+  display: grid;
+  gap: var(--space-8);
+  animation: rise-in var(--dur-3) var(--ease-out);
+}
+
+.ow-view:focus {
+  outline: none;
+}
+
+.ow-head {
+  display: grid;
+  gap: var(--space-2);
+  max-inline-size: 60ch;
+}
+
+.ow-title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+}
+
+.ow-block {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.ow-block__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-line-strong);
+}
+
+.ow-block__title h3 {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-medium);
+}
+
+.ow-question {
+  font-size: var(--fs-small);
+  color: var(--rif-date);
+}
+
+/* ---- Journey ------------------------------------------------------ */
+.ow-journey {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.ow-jstep {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  padding-bottom: var(--space-4);
+  position: relative;
+  color: var(--color-text-faint);
+}
+
+.ow-jstep::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 10.5px;
+  top: 18px;
+  bottom: 0;
+  inline-size: 1px;
+  background: var(--color-line-strong);
+}
+
+.ow-jstep:last-child::before {
+  display: none;
+}
+
+.ow-jdot {
+  position: relative;
+  z-index: 1;
+  inline-size: 22px;
+  block-size: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rif-white);
+}
+
+.ow-jdot .icon {
+  inline-size: 12px;
+  block-size: 12px;
+  stroke-width: 2.4;
+}
+
+.ow-jstep.is-done {
+  color: var(--color-text-muted);
+}
+
+.ow-jstep.is-done .ow-jdot {
+  background: var(--rif-olive);
+  border-color: var(--rif-olive);
+}
+
+.ow-jstep.is-done::before {
+  background: var(--rif-olive);
+}
+
+.ow-jstep.is-current {
+  color: var(--color-text);
+}
+
+.ow-jstep.is-current .ow-jdot {
+  border: 2px solid var(--rif-date);
+}
+
+.ow-jstep.is-current .ow-jdot::after {
+  content: "";
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--rif-date);
+  animation: pulse 2.2s var(--ease-out) infinite;
+}
+
+.ow-jlabel {
+  font-size: 0.9375rem;
+  line-height: 22px;
+}
+
+.ow-jstep.is-current .ow-jlabel {
+  font-weight: var(--fw-medium);
+}
+
+.ow-jnote {
+  display: block;
+  font-size: var(--fs-micro);
+  color: var(--color-text-faint);
+  line-height: 1.5;
+}
+
+@media (min-width: 900px) {
+  .ow-journey {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .ow-jstep {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding-bottom: 0;
+  }
+
+  .ow-jstep::before {
+    top: 10.5px;
+    bottom: auto;
+    inset-inline-start: 22px;
+    inset-inline-end: 0;
+    inline-size: auto;
+    block-size: 1px;
+  }
+
+  .ow-jstep:last-child::before {
+    display: none;
+  }
+}
+
+.ow-where {
+  font-size: clamp(1.4rem, 1.15rem + 1vw, 2rem);
+  font-weight: var(--fw-light);
+  line-height: 1.45;
+  max-inline-size: 36ch;
+}
+
+/* ---- Lists: done / attention / activity ------------------------- */
+.ow-two {
+  display: grid;
+  gap: var(--space-8);
+}
+
+@media (min-width: 900px) {
+  .ow-two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ow-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ow-list li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-3);
+  align-items: baseline;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.ow-list .icon {
+  align-self: start;
+  margin-top: 3px;
+}
+
+.ow-list--done .icon {
+  color: var(--rif-olive);
+}
+
+.ow-list--attention .icon {
+  color: var(--rif-date);
+}
+
+.ow-list__text {
+  display: grid;
+  gap: 2px;
+}
+
+.ow-list__text small {
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+
+.ow-list__aside {
+  font-size: var(--fs-meta);
+  color: var(--color-text-faint);
+  white-space: nowrap;
+}
+
+.ow-list li.is-unread .ow-list__text > span::after {
+  content: "";
+  display: inline-block;
+  inline-size: 6px;
+  block-size: 6px;
+  margin-inline-start: 0.5em;
+  border-radius: 50%;
+  background: var(--rif-date);
+  vertical-align: middle;
+}
+
+/* ---- Next opportunity (editorial) --------------------------------- */
+.ow-next {
+  display: grid;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+  border-block: 1px solid var(--color-line-strong);
+  --contour-opacity: 0.06;
+}
+
+.ow-next__title {
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+}
+
+.ow-next__grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.ow-next__grid dt {
+  font-size: var(--fs-meta);
+  color: var(--color-text-faint);
+}
+
+.ow-next__grid dd {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 900px) {
+  .ow-next__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+}
+
+/* ---- Study track ----------------------------------------------- */
+.ow-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.ow-track li {
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--fs-meta);
+  color: var(--color-text-faint);
+}
+
+.ow-track li::before {
+  content: "";
+  block-size: 3px;
+  background: var(--color-line);
+}
+
+.ow-track li.is-done {
+  color: var(--color-text-muted);
+}
+
+.ow-track li.is-done::before {
+  background: var(--rif-olive);
+}
+
+.ow-track li.is-current {
+  color: var(--color-text);
+  font-weight: var(--fw-medium);
+}
+
+.ow-track li.is-current::before {
+  background: var(--rif-date);
+}
+
+@media (max-width: 599px) {
+  .ow-track li span {
+    display: none;
+  }
+
+  .ow-track li.is-current span {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+/* ---- Facts (farm overview) ----------------------------------------- */
+.ow-facts {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.ow-facts > div {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.ow-facts dt {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+}
+
+.ow-facts dd {
+  margin: 0;
+}
+
+@media (max-width: 599px) {
+  .ow-facts > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
+
+.ow-readiness {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .ow-readiness {
+    grid-template-columns: auto 1fr;
+    gap: var(--space-8);
+  }
+}
+
+/* ---- Opportunities as editorial rows ------------------------------- */
+.ow-opps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.ow-opp {
+  display: grid;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.ow-opp__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.ow-opp__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-regular);
+}
+
+.ow-opp__title .icon {
+  color: var(--rif-olive);
+}
+
+.ow-opp dl {
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.ow-opp dt {
+  font-size: var(--fs-meta);
+  color: var(--color-text-faint);
+}
+
+.ow-opp dd {
+  margin: 2px 0 0;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 900px) {
+  .ow-opp dl {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+}
+
+/* ---- Profile form ------------------------------------------------ */
+.ow-form {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ow-form__group {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-line-strong);
+}
+
+@media (min-width: 768px) {
+  .ow-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+}
+
+.ow-form__row {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.ow-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  padding-block: var(--space-4);
+  background: linear-gradient(to top, var(--color-bg) 70%, rgba(250, 247, 241, 0));
+}
+
+/* ---- Demo banner ------------------------------------------------- */
+.ow-demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border: 1px dashed var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+/* ---- Mobile: the focused app ------------------------------------- */
+.ow-tabs {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: var(--z-bottom-nav);
+  background: rgba(250, 247, 241, 0.97);
+  border-top: 1px solid var(--color-line);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.ow-tabs ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  block-size: var(--bottom-nav-h);
+}
+
+.ow-tabs a,
+.ow-tabs button {
+  position: relative;
+  inline-size: 100%;
+  block-size: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.ow-tabs .icon {
+  inline-size: 22px;
+  block-size: 22px;
+}
+
+.ow-tabs [aria-current="page"] {
+  color: var(--rif-olive);
+}
+
+.ow-tabs [aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inline-size: 24px;
+  block-size: 2px;
+  background: currentColor;
+}
+
+body.has-ow-tabs {
+  padding-bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+}
+
+body.has-ow-tabs .demo-fab,
+body.has-ow-tabs .toast-region {
+  bottom: calc(var(--bottom-nav-h) + var(--space-3) + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 1024px) {
+  .ow-tabs {
+    display: none;
+  }
+
+  body.has-ow-tabs {
+    padding-bottom: 0;
+  }
+
+  body.has-ow-tabs .demo-fab,
+  body.has-ow-tabs .toast-region {
+    bottom: var(--space-5);
+  }
+}
+
+/* On phones the masthead is shorter: the workspace is the point */
+@media (max-width: 1023px) {
+  .ow-band .band__lead {
+    display: none;
+  }
+
+  .ow-page {
+    padding-top: var(--space-6);
+  }
+
+  .ow-view {
+    gap: var(--space-7);
+  }
+}
+
+/* Grids must let their children shrink (tables scroll inside .table-wrap) */
+.ow-view > *,
+.ow-block > * {
+  min-inline-size: 0;
+}
+
+@media (min-width: 900px) {
+  .ow-journey--five {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.ow-jlabel {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 1023px) {
+  .ow-form__actions {
+    bottom: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom, 0px));
+  }
+}

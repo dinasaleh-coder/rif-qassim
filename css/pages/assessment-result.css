@@ -1,0 +1,400 @@
+/* ==========================================================================
+   Assessment report — a preliminary field & investment report
+   Reads like a document: numbered chapters, rules, figures in prose.
+   ========================================================================== */
+
+.rp-page {
+  padding-block: var(--space-7) var(--space-9);
+}
+
+.rp-layout {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.rp-toc {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .rp-layout {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: var(--space-9);
+    align-items: start;
+  }
+
+  .rp-toc {
+    display: grid;
+    gap: var(--space-5);
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-6));
+  }
+}
+
+.rp-toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.rp-toc a {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.rp-toc a[aria-current="true"],
+.rp-toc a:hover {
+  color: var(--color-text);
+}
+
+.rp-toc .num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  color: var(--rif-date);
+}
+
+/* ---- The sheet ----------------------------------------------------- */
+.rp-sheet {
+  background: var(--rif-white);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lift);
+}
+
+.rp-letterhead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-6) var(--space-5);
+  border-bottom: 1px solid var(--color-line-strong);
+}
+
+.rp-letterhead dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: var(--space-1) var(--space-4);
+  font-size: var(--fs-meta);
+}
+
+.rp-letterhead dt {
+  color: var(--color-text-faint);
+}
+
+.rp-letterhead dd {
+  margin: 0;
+}
+
+.rp-chapter {
+  padding: var(--space-7) var(--space-6);
+  border-bottom: 1px solid var(--color-line);
+  scroll-margin-top: calc(var(--header-h) + var(--space-4));
+}
+
+.rp-chapter:last-child {
+  border-bottom: 0;
+}
+
+.rp-chapter__head {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.rp-chapter__num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--rif-date);
+}
+
+.rp-chapter__title {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .rp-chapter {
+    padding: var(--space-8) var(--space-8);
+  }
+
+  .rp-letterhead {
+    padding: var(--space-6) var(--space-8) var(--space-5);
+  }
+}
+
+/* ---- 01 Summary ----------------------------------------------------- */
+.rp-summary {
+  display: grid;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+.rp-verdict {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.rp-verdict__label {
+  font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+  font-weight: var(--fw-light);
+  line-height: 1.2;
+}
+
+.rp-findings {
+  list-style: none;
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  display: grid;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.rp-findings li {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: var(--space-4);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.rp-findings dt,
+.rp-findings .k {
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+}
+
+.rp-findings .v {
+  font-size: 1.0625rem;
+}
+
+.rp-range {
+  font-family: var(--font-en);
+  font-feature-settings: "tnum" 1;
+}
+
+@media (min-width: 768px) {
+  .rp-summary {
+    grid-template-columns: auto 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 599px) {
+  .rp-findings li {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+}
+
+/* ---- 02 Readiness --------------------------------------------------- */
+.rp-dims {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.rp-dim {
+  border-bottom: 1px solid var(--color-line);
+  padding-bottom: var(--space-4);
+}
+
+.rp-dim .hbars {
+  gap: 0;
+}
+
+.rp-dim__why {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+}
+
+.rp-drivers {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--fs-small);
+}
+
+.rp-drivers li {
+  display: grid;
+  grid-template-columns: 1fr 5rem;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.rp-drivers .pts {
+  font-family: var(--font-en);
+  text-align: end;
+  color: var(--color-text-muted);
+}
+
+.rp-drivers .pts.is-zero {
+  color: var(--status-cancelled);
+}
+
+/* ---- 03 Strengths & gaps --------------------------------------------- */
+.rp-two {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.rp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.rp-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.rp-list .icon {
+  margin-top: 4px;
+}
+
+.rp-list--good .icon {
+  color: var(--rif-olive);
+}
+
+.rp-list--gap .icon {
+  color: var(--rif-date);
+}
+
+.rp-list h4 {
+  font-size: 1rem;
+  font-weight: var(--fw-medium);
+}
+
+.rp-list p {
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+  margin-top: var(--space-1);
+}
+
+@media (min-width: 900px) {
+  .rp-two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---- 07 Next steps -------------------------------------------------- */
+.rp-next {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  border-top: 1px solid var(--color-line-strong);
+}
+
+.rp-next li {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.rp-next .num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--rif-date);
+}
+
+.rp-next h4 {
+  font-size: 1.0625rem;
+  font-weight: var(--fw-medium);
+}
+
+.rp-next p {
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--fs-small);
+}
+
+.rp-next .who {
+  font-size: var(--fs-micro);
+  color: var(--color-text-faint);
+  white-space: nowrap;
+}
+
+/* ---- Study request ---------------------------------------------- */
+.rp-cta {
+  margin-top: var(--space-8);
+  padding: var(--space-8) var(--space-6);
+  background: var(--rif-earth);
+  color: var(--color-on-dark);
+  border-radius: var(--radius-sm);
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+  --contour-opacity: 0.07;
+}
+
+.rp-cta .lead {
+  color: var(--color-on-dark-muted);
+}
+
+.rp-cta__title {
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+  font-weight: var(--fw-light);
+  line-height: 1.15;
+  max-inline-size: 18ch;
+}
+
+@media (min-width: 768px) {
+  .rp-cta {
+    padding: var(--space-9) var(--space-8);
+  }
+}
+
+/* ---- Print: the report as a document ----------------------------- */
+@media print {
+  .site-header,
+  .site-footer,
+  .bottom-nav,
+  .demo-fab,
+  .rp-toc,
+  .band,
+  .rp-cta,
+  .toast-region,
+  [data-no-print] {
+    display: none !important;
+  }
+
+  .rp-page {
+    padding: 0;
+  }
+
+  .rp-layout {
+    display: block;
+  }
+
+  .rp-sheet {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .rp-chapter {
+    break-inside: avoid-page;
+  }
+}
+
+/* Grid children must be allowed to shrink (the comparison table scrolls) */
+.rp-layout > * {
+  min-inline-size: 0;
+}

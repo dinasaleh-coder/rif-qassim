@@ -1,0 +1,297 @@
+/* ==========================================================================
+   RIF QASSIM — Responsive
+   Breakpoints: 360 · 390 · 430 (phones), 768 (tablet), 1024 (laptop),
+   1440 (desktop), 1920 (wide). Base styles are for phones.
+   ========================================================================== */
+
+/* ---- Small phones (≤ 389px): tighten without breaking ----------------- */
+@media (max-width: 389px) {
+  .btn {
+    padding-inline: 1.15em;
+  }
+
+  .btn--lg {
+    padding-inline: 1.4em;
+  }
+
+  .segmented__btn {
+    padding-inline: 0.8em;
+  }
+
+  .stepper__btn {
+    inline-size: 46px;
+  }
+
+  .tabs {
+    gap: var(--space-4);
+  }
+}
+
+/* ---- Phones: table becomes stacked rows ------------------------------ */
+@media (max-width: 767px) {
+  .table--stack thead {
+    display: none;
+  }
+
+  .table--stack,
+  .table--stack tbody,
+  .table--stack tr,
+  .table--stack td {
+    display: block;
+    inline-size: 100%;
+  }
+
+  .table--stack tr {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .table--stack td {
+    padding: 0;
+    border: 0;
+  }
+
+  .table--stack td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: var(--fs-micro);
+    color: var(--color-text-faint);
+  }
+
+  .table--stack td.cell--primary {
+    grid-column: 1 / -1;
+    font-weight: var(--fw-medium);
+  }
+
+  .table--stack td.cell--primary::before {
+    display: none;
+  }
+
+  /* Swipe rails for cards on phones */
+  .rail-mobile {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    grid-template-columns: none;
+    gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-bottom: var(--space-3);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .rail-mobile::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rail-mobile > * {
+    scroll-snap-align: start;
+  }
+
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .demo-fab__text {
+    display: none;
+  }
+
+  .demo-fab {
+    padding-inline: 0.75em;
+  }
+}
+
+/* ---- Tablet (≥ 768px) ------------------------------------------------- */
+@media (min-width: 768px) {
+  .grid--2 { --cols: 2; }
+  .grid--3 { --cols: 2; }
+  .grid--4 { --cols: 2; }
+
+  .footer__grid {
+    grid-template-columns: 1.3fr 1fr;
+  }
+
+  .footer__links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Modal becomes a centred dialog */
+  .modal {
+    inset: 50% auto auto 50%;
+    inline-size: min(640px, calc(100vw - var(--space-8)));
+    max-block-size: min(86vh, 860px);
+    border-radius: var(--radius-md);
+    transform: translate(-50%, -46%) scale(0.98);
+    opacity: 0;
+    transition: transform var(--dur-3) var(--ease-soft), opacity var(--dur-3) var(--ease-out);
+  }
+
+  .modal.is-open {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+
+  .modal--wide {
+    inline-size: min(960px, calc(100vw - var(--space-8)));
+  }
+
+  /* Drawer slides from the inline-end edge */
+  .drawer {
+    inset-block: 0;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    inline-size: min(520px, 92vw);
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-float);
+  }
+
+  [dir="ltr"] .drawer {
+    transform: translateX(100%);
+  }
+
+  .drawer.is-open,
+  [dir="ltr"] .drawer.is-open {
+    transform: none;
+  }
+
+  .drawer--wide {
+    inline-size: min(720px, 92vw);
+  }
+
+  .toast-region {
+    inset-inline: auto;
+    inset-inline-start: 50%;
+    transform: translateX(50%);
+    inline-size: 460px;
+  }
+
+  [dir="ltr"] .toast-region {
+    transform: translateX(-50%);
+  }
+
+  .hide-tablet-up {
+    display: none !important;
+  }
+}
+
+/* ---- Laptop (≥ 1024px): desktop navigation ---------------------------- */
+@media (min-width: 1024px) {
+  .grid--3 { --cols: 3; }
+  .grid--4 { --cols: 4; }
+
+  .site-nav {
+    display: block;
+  }
+
+  .site-header__actions .site-header__cta {
+    display: inline-flex;
+  }
+
+  .menu-button {
+    display: none;
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+  body.has-bottom-nav {
+    padding-bottom: 0;
+  }
+
+  body.has-bottom-nav .toast-region,
+  body.has-bottom-nav .demo-fab {
+    bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .demo-fab {
+    inset-inline-end: var(--space-5);
+    bottom: var(--space-5);
+  }
+
+  .footer__grid {
+    grid-template-columns: 1.4fr 1.6fr auto;
+    align-items: start;
+  }
+
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+/* ---- Hover-capable devices: hospitality card reveal ------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .dest-card__reveal {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows var(--dur-4) var(--ease-soft),
+      opacity var(--dur-3) var(--ease-out);
+  }
+
+  .dest-card__reveal > div {
+    overflow: hidden;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .dest-card:hover .dest-card__reveal,
+  .dest-card:focus-within .dest-card__reveal {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  .dest-card:hover .dest-card__media > img,
+  .dest-card:hover .dest-card__media > .media__scene {
+    transform: scale(1.045);
+  }
+
+  .dest-card__cta .icon--dir {
+    transition: transform var(--dur-3) var(--ease-out);
+  }
+
+  .dest-card:hover .dest-card__cta .icon--dir {
+    transform: translateX(4px);
+  }
+
+  [dir="rtl"] .dest-card:hover .dest-card__cta .icon--dir {
+    transform: scaleX(-1) translateX(4px);
+  }
+}
+
+/* ---- Desktop (≥ 1440px) ----------------------------------------------- */
+@media (min-width: 1440px) {
+  :root {
+    --header-h: 84px;
+  }
+}
+
+/* ---- Wide (≥ 1920px): keep measure, grow breathing room -------------- */
+@media (min-width: 1920px) {
+  :root {
+    --container: 1440px;
+    font-size: 106.25%;
+  }
+}
+
+/* Phones: toasts appear at the top so they never cover bottom bars,
+   the booking/assessment action bars or the demo button */
+@media (max-width: 767px) {
+  html body .toast-region,
+  html body.has-bottom-nav .toast-region,
+  html body.has-bk-bar .toast-region,
+  html body.has-wz-bar .toast-region,
+  html body.has-ow-tabs .toast-region,
+  html body.has-book-bar .toast-region {
+    top: calc(var(--space-3) + env(safe-area-inset-top, 0px));
+    bottom: auto;
+  }
+}

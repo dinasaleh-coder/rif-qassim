@@ -1,0 +1,149 @@
+/* ==========================================================================
+   RIF QASSIM — Design tokens
+   Every colour, size, radius, shadow and timing in the product comes from here.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand palette -------------------------------------------------- */
+  --rif-white: #FAF7F1;   /* page ground, warm off-white */
+  --rif-paper: #F4EEE3;   /* raised paper, report pages */
+  --rif-sand: #ECE3D2;    /* section grounds */
+  --rif-stone: #CDBFA6;   /* hairlines, muted surfaces */
+  --rif-stone-deep: #A8987C;
+  --rif-sage: #98A287;    /* secondary accent, "in progress" */
+  --rif-sage-soft: #DCE0D2;
+  --rif-olive: #59603F;   /* primary action */
+  --rif-olive-deep: #444A2F;
+  --rif-earth: #5B3F2C;   /* deep sections, footer */
+  --rif-earth-deep: #3F2B1E;
+  --rif-ink: #23201C;     /* text */
+  --rif-date: #A8683A;    /* single restrained accent: dates, sunset */
+  --rif-date-soft: #EBD7C4;
+
+  /* ---- Semantic roles -------------------------------------------------- */
+  --color-bg: var(--rif-white);
+  --color-surface: var(--rif-paper);
+  --color-surface-2: var(--rif-sand);
+  --color-text: var(--rif-ink);
+  --color-text-muted: #6B6358;
+  --color-text-faint: #8F8576;
+  --color-line: rgba(35, 32, 28, 0.14);
+  --color-line-strong: rgba(35, 32, 28, 0.32);
+  --color-action: var(--rif-olive);
+  --color-action-hover: var(--rif-olive-deep);
+  --color-on-action: var(--rif-white);
+  --color-accent: var(--rif-date);
+  --color-focus: var(--rif-date);
+  --color-overlay: rgba(35, 28, 22, 0.52);
+
+  /* On dark (earth) grounds */
+  --color-on-dark: #F4EEE3;
+  --color-on-dark-muted: rgba(244, 238, 227, 0.68);
+  --color-line-on-dark: rgba(244, 238, 227, 0.2);
+
+  /* Status — desaturated, inside the family */
+  --status-confirmed: #59603F;
+  --status-confirmed-bg: #E2E4D6;
+  --status-pending: #9A7432;
+  --status-pending-bg: #F1E6CF;
+  --status-cancelled: #94503C;
+  --status-cancelled-bg: #F0DDD4;
+  --status-completed: #5F574D;
+  --status-completed-bg: #E6E0D6;
+  --status-error: #9B3F2B;
+
+  /* ---- Typography ------------------------------------------------------ */
+  --font-ar: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --font-en: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-body: var(--font-ar);
+  --font-display: var(--font-ar);
+
+  /* Fluid scale (360px → 1440px) */
+  --fs-display: clamp(2.75rem, 1.6rem + 5.2vw, 7.25rem);
+  --fs-h1: clamp(2.125rem, 1.45rem + 3vw, 4.25rem);
+  --fs-h2: clamp(1.75rem, 1.3rem + 2vw, 3.125rem);
+  --fs-h3: clamp(1.3125rem, 1.15rem + 0.7vw, 1.75rem);
+  --fs-h4: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --fs-lead: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-meta: 0.8125rem;
+  --fs-micro: 0.75rem;
+
+  --lh-tight: 1.15;
+  --lh-snug: 1.35;
+  --lh-body: 1.75;   /* Arabic needs generous leading */
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  --measure: 62ch;
+
+  /* ---- Spacing (8pt) --------------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --section-y: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --gutter: clamp(1.25rem, 0.8rem + 2vw, 2.5rem);
+
+  /* ---- Radius — deliberately small ------------------------------------ */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-pill: 999px;
+
+  /* ---- Depth: one soft shadow, for floating things only --------------- */
+  --shadow-float: 0 18px 48px -18px rgba(52, 38, 26, 0.32), 0 2px 6px rgba(52, 38, 26, 0.06);
+  --shadow-lift: 0 10px 28px -16px rgba(52, 38, 26, 0.36);
+
+  /* ---- Motion ---------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-1: 140ms;
+  --dur-2: 240ms;
+  --dur-3: 420ms;
+  --dur-4: 720ms;
+  --dur-5: 1100ms;
+
+  /* ---- Layout ---------------------------------------------------------- */
+  --container: 1320px;
+  --container-wide: 1600px;
+  --container-narrow: 820px;
+  --header-h: 76px;
+  --bottom-nav-h: 64px;
+
+  /* ---- Layers ---------------------------------------------------------- */
+  --z-base: 1;
+  --z-sticky: 20;
+  --z-header: 40;
+  --z-bottom-nav: 45;
+  --z-overlay: 60;
+  --z-drawer: 70;
+  --z-toast: 90;
+
+  color-scheme: light;
+}
+
+/* English: Latin family leads, Arabic stays as fallback */
+:root[lang="en"] {
+  --font-body: var(--font-en);
+  --font-display: var(--font-en);
+  --lh-body: 1.6;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-h: 64px;
+  }
+}
